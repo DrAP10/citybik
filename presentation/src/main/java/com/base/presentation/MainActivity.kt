@@ -10,14 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.base.presentation.home.HomeScreen
 import com.base.presentation.theme.BaseTheme
-import com.base.usecases.GetRegretUseCase
-import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-
-
-    private val getGreetingUseCase: GetRegretUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +21,7 @@ class MainActivity : ComponentActivity() {
             BaseTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting(getGreetingUseCase.getRegret("es").value)
+                    HomeScreen()
                 }
             }
         }
