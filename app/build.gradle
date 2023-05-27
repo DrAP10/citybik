@@ -42,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation project(':datasource')
     implementation project(':presentation')
 
     implementation "io.insert-koin:koin-android:$koin_android_version"

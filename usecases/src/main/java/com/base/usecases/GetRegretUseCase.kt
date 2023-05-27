@@ -1,6 +1,6 @@
 package com.base.usecases
 
-import com.base.data.GreetingRepository
+import com.base.data.repositories.GreetingRepository
 
 class GetRegretUseCase(private val repository: GreetingRepository) {
 

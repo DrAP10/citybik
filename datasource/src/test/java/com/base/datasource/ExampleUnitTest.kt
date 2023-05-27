@@ -1,4 +1,4 @@
-package com.base.datasource_remote
+package com.base.datasource
 
 import org.junit.Test
 
