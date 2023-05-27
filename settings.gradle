@@ -16,7 +16,6 @@ rootProject.name = "Base"
 include ':app'
 include ':domain'
 include ':data'
-include ':core'
 include ':usecases'
 include ':presentation'
 include ':datasource'
