@@ -1,15 +1,25 @@
 package com.base.presentation.home
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.base.domain.Greeting
-import com.base.usecases.GetRegretUseCase
+import androidx.lifecycle.viewModelScope
+import com.base.domain.Publication
+import com.base.usecases.GetPublicationsUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class HomeViewModel(getRegretUseCase: GetRegretUseCase) : ViewModel() {
+class HomeViewModel(getPublicationsUseCase: GetPublicationsUseCase) : ViewModel() {
 
-    private val _greetingState = MutableStateFlow(getRegretUseCase.getRegret("en"))
-    val greetingState: StateFlow<Greeting> = _greetingState.asStateFlow()
+    private var _publicationsState: MutableStateFlow<List<Publication>> = MutableStateFlow(emptyList())
+    val publicationState: StateFlow<List<Publication>> = _publicationsState.asStateFlow()
+
+    init {
+        viewModelScope.launch(Dispatchers.Main) {
+            _publicationsState.value = getPublicationsUseCase.getPublications(46)
+        }
+    }
 
 }
