@@ -13,4 +13,5 @@ dependencies {
     implementation project(':data')
 
     implementation "io.insert-koin:koin-core:$koin_version"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 }

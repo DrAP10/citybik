@@ -1,8 +1,8 @@
 package com.base.presentation.home
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.base.domain.Answer
 import com.base.domain.Publication
 import com.base.usecases.GetPublicationsUseCase
 import kotlinx.coroutines.Dispatchers
@@ -13,12 +13,14 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(getPublicationsUseCase: GetPublicationsUseCase) : ViewModel() {
 
-    private var _publicationsState: MutableStateFlow<List<Publication>> = MutableStateFlow(emptyList())
-    val publicationState: StateFlow<List<Publication>> = _publicationsState.asStateFlow()
+    private var _publicationsState: MutableStateFlow<Answer<List<Publication>>> = MutableStateFlow(Answer.Loading)
+    val publicationState: StateFlow<Answer<List<Publication>>> = _publicationsState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.Main) {
-            _publicationsState.value = getPublicationsUseCase.getPublications(46)
+            getPublicationsUseCase.run(46).collect {
+                _publicationsState.value = it
+            }
         }
     }
 
