@@ -1,16 +1,13 @@
 package com.base.usecases
 
 import com.base.data.repositories.PublicationRepository
-import com.base.domain.Answer
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
+import com.base.domain.Publication
 
-class GetPublicationsUseCase(private val repository: PublicationRepository) {
+class GetPublicationsUseCase(
+    private val repository: PublicationRepository
+) : UseCase<Int, Publication>() {
 
-    suspend fun run(code: Int) = flow {
-        emit(Answer.Loading)
-        delay(2000)
-        emit(repository.getPublications(code))
-    }
+    override suspend fun run(code: Int) =
+        repository.getPublications(code)
 
 }
