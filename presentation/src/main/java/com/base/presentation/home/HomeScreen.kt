@@ -17,7 +17,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = koinViewModel()) {
     when (val publicationsState = homeViewModel.publicationState.collectAsState().value) {
         is Answer.Success -> Publications(publicationsState)
         is Answer.NetworkError -> Message("Connection error!")
-        is Answer.Error -> Message("code: ${publicationsState.code}, message: ${publicationsState.message}")
+        is Answer.Error -> Message("Error! \ncode: ${publicationsState.code}, message: ${publicationsState.message}")
         is Answer.UnknownError -> Message("Unknown error!")
         is Answer.Loading -> LoadingPublications()
     }
@@ -25,10 +25,8 @@ fun HomeScreen(homeViewModel: HomeViewModel = koinViewModel()) {
 }
 
 @Composable
-private fun Publications(publicationsState: Answer.Success<List<Publication>>) {
-    publicationsState.data.forEach {
-        Message(text = it.title)
-    }
+private fun Publications(publicationsState: Answer.Success<Publication>) {
+    Message(text = publicationsState.data.message)
 }
 @Composable
 private fun LoadingPublications() {

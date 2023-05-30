@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.flow
 
 class GetPublicationsUseCase(private val repository: PublicationRepository) {
 
-    suspend fun run(teamId: Int) = flow {
+    suspend fun run(code: Int) = flow {
         emit(Answer.Loading)
-        delay(5000)
-        emit(repository.getPublications(teamId))
+        delay(2000)
+        emit(repository.getPublications(code))
     }
 
 }

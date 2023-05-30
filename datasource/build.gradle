@@ -19,12 +19,12 @@ android {
         debug {
             minifyEnabled false
             debuggable true
-            buildConfigField "String", "API_URL", "\"https://www.drapgames.com:3005/\""
+            buildConfigField "String", "API_URL", "\"https://www.drapgames.com:3006/\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "API_URL", "\"https://www.drapgames.com:3005/\""
+            buildConfigField "String", "API_URL", "\"https://www.drapgames.com:3006/\""
         }
     }
     compileOptions {

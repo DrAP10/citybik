@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(getPublicationsUseCase: GetPublicationsUseCase) : ViewModel() {
 
-    private var _publicationsState: MutableStateFlow<Answer<List<Publication>>> = MutableStateFlow(Answer.Loading)
-    val publicationState: StateFlow<Answer<List<Publication>>> = _publicationsState.asStateFlow()
+    private var _publicationsState: MutableStateFlow<Answer<Publication>> = MutableStateFlow(Answer.Loading)
+    val publicationState: StateFlow<Answer<Publication>> = _publicationsState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.Main) {
-            getPublicationsUseCase.run(46).collect {
+            getPublicationsUseCase.run(500).collect {
                 _publicationsState.value = it
             }
         }

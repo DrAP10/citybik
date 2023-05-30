@@ -1,6 +1,6 @@
 package com.base.datasource.remote
 
-import com.base.data.model.PublicationsDto
+import com.base.data.model.PublicationDto
 import com.base.data.model.base.DataAnswer
 import com.base.data.sources.remote.PublicationRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,8 +12,8 @@ class PublicationRemoteDataSourceImpl(
 ) : PublicationRemoteDataSource {
 
 
-    override suspend fun getPublications(teamId: Int): DataAnswer<PublicationsDto> = wrapApiCall(dispatcher) {
-        publicationApi.getPublications(teamId)
+    override suspend fun getPublications(code: Int): DataAnswer<PublicationDto> = wrapApiCall(dispatcher) {
+        publicationApi.getPublications(code)
     }
 
 }
