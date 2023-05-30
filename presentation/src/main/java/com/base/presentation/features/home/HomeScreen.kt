@@ -1,4 +1,4 @@
-package com.base.presentation.home
+package com.base.presentation.features.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

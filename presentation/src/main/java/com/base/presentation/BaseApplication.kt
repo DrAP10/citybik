@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.base.presentation.home.HomeScreen
-import com.base.presentation.setting.SettingScreen
+import com.base.presentation.features.home.HomeScreen
+import com.base.presentation.features.setting.SettingScreen
 
 @Composable
 fun BaseApplication() {

@@ -1,4 +1,4 @@
-package com.base.presentation.setting
+package com.base.presentation.features.setting
 
 import androidx.lifecycle.ViewModel
 

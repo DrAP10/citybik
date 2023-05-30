@@ -1,4 +1,4 @@
-package com.base.presentation.setting
+package com.base.presentation.features.setting
 
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults

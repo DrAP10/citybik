@@ -1,4 +1,4 @@
-package com.base.presentation.home
+package com.base.presentation.features.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +18,7 @@ class HomeViewModel(getPublicationsUseCase: GetPublicationsUseCase) : ViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.Main) {
-            getPublicationsUseCase.run(500).collect {
+            getPublicationsUseCase(400).collect {
                 _publicationsState.value = it
             }
         }
