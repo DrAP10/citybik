@@ -18,7 +18,7 @@ class HomeViewModel(getPublicationsUseCase: GetPublicationsUseCase) : ViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.Main) {
-            getPublicationsUseCase(400).collect {
+            getPublicationsUseCase(200).collect {
                 _publicationsState.value = it
             }
         }
