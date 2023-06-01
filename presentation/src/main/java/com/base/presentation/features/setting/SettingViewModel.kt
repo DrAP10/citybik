@@ -36,7 +36,7 @@ class SettingViewModel(
     fun resetPublications() =
         viewModelScope.launch(Dispatchers.Main) {
             resetLocalPublicationsUseCase().collect {
-                getPublications()
+
             }
         }
 

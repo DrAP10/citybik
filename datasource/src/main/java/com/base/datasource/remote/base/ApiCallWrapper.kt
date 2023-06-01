@@ -1,28 +1,29 @@
-package com.base.datasource.remote
+package com.base.datasource.remote.base
 
-import com.base.data.model.base.DataAnswer
+import com.base.domain.Answer
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-suspend fun <T> wrapApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): DataAnswer<T> {
+suspend fun <T> wrapApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): Answer<T> {
     return withContext(dispatcher) {
-        try {
-            DataAnswer.Success(apiCall.invoke())
+        val dataAnswer = try {
+            RemoteAnswer.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
             when (throwable) {
-                is IOException -> DataAnswer.NetworkError(throwable)
+                is IOException -> RemoteAnswer.NetworkError(throwable)
                 is HttpException -> {
                     val code = throwable.code()
                     val errorResponse = convertErrorBody(throwable)
-                    DataAnswer.Error(code, errorResponse)
+                    RemoteAnswer.Error(code, errorResponse)
                 }
                 else -> {
-                    DataAnswer.UnknownError(throwable)
+                    RemoteAnswer.UnknownError(throwable)
                 }
             }
         }
+        dataAnswer.mapToDomain<T>()
     }
 }
 

@@ -12,4 +12,6 @@ dependencies {
     implementation project(':domain')
 
     implementation "io.insert-koin:koin-core:$koin_version"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
 }

@@ -1,4 +1,4 @@
-package com.base.data.model.remote
+package com.base.datasource.remote.publications
 
 data class PublicationDto(
     val id: Long,

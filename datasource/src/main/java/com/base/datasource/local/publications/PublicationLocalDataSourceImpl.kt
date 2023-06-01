@@ -1,20 +1,19 @@
 package com.base.datasource.local.publications
 
-import com.base.data.model.local.PublicationPojo
 import com.base.data.sources.local.PublicationLocalDataSource
+import com.base.domain.Publication
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import java.util.*
 
 class PublicationLocalDataSourceImpl(
     private val publicationDao: PublicationDao
 ) : PublicationLocalDataSource {
 
+    override suspend fun getPublications(): Flow<List<Publication>> =
+        publicationDao.getPublications().map { list -> list.map { item -> item.toBo() } }
 
-    override suspend fun getPublications(): List<PublicationPojo> =
-        publicationDao.getPublications().map { it.toPojo() }
-
-    override suspend fun getPublication(id: Long): PublicationPojo =
-        publicationDao.getPublication(id).toPojo()
-
-    override suspend fun insertPublications(publication: PublicationPojo) =
+    override suspend fun insertPublications(publication: Publication) =
         publicationDao.insertPublications(publication.toEntity())
 
     override suspend fun deleteAll() =
@@ -22,24 +21,24 @@ class PublicationLocalDataSourceImpl(
 
 }
 
-private fun PublicationPojo.toEntity() = PublicationEntity(
+private fun Publication.toEntity() = PublicationEntity(
     id = this.id,
     title = this.title,
     subTitle = this.subTitle,
     author = this.author,
     body = this.body,
     imageUrl = this.imageUrl,
-    date = this.date,
+    date = this.date.time,
     likes = this.likes,
 )
 
-private fun PublicationEntity.toPojo() = PublicationPojo(
+private fun PublicationEntity.toBo() = Publication(
     id = this.id,
     title = this.title,
     subTitle = this.subTitle,
     author = this.author,
     body = this.body,
     imageUrl = this.imageUrl,
-    date = this.date,
+    date = Date(this.date),
     likes = this.likes,
 )
