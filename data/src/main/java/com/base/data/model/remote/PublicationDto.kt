@@ -1,14 +1,12 @@
-package com.base.domain
+package com.base.data.model.remote
 
-import java.util.Date
-
-data class Publication(
+data class PublicationDto(
     val id: Long,
     val title: String,
-    val subTitle: String,
+    val subtitle: String,
     val author: String,
     val body: String,
     val imageUrl: String,
-    val date: Date,
+    val date: String,
     val likes: Int,
 )

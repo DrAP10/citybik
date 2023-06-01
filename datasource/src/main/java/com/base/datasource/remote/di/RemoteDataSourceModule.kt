@@ -2,14 +2,14 @@ package com.base.datasource.remote.di
 
 import com.base.data.sources.remote.PublicationRemoteDataSource
 import com.base.datasource.BuildConfig
-import com.base.datasource.remote.PublicationApi
-import com.base.datasource.remote.PublicationRemoteDataSourceImpl
+import com.base.datasource.remote.publications.PublicationApi
+import com.base.datasource.remote.publications.PublicationRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun dataSourceModule() = module {
+fun remoteDataSourceModule() = module {
     factory { provideOkHttpClient() }
     single { provideRetrofit(get()) }
     factory { providePublicationApi(get()) }

@@ -1,8 +1,9 @@
-package com.base.datasource.remote
+package com.base.datasource.remote.publications
 
-import com.base.data.model.PublicationDto
 import com.base.data.model.base.DataAnswer
+import com.base.data.model.remote.PublicationDto
 import com.base.data.sources.remote.PublicationRemoteDataSource
+import com.base.datasource.remote.wrapApiCall
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

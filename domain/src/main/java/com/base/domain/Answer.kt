@@ -13,4 +13,6 @@ sealed class Answer<out D> {
 
     object Loading : Answer<Nothing>()
 
+    fun <D> D.asSuccess() = Success(this)
+
 }

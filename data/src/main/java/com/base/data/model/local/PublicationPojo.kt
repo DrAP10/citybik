@@ -1,14 +1,12 @@
-package com.base.domain
+package com.base.data.model.local
 
-import java.util.Date
-
-data class Publication(
+data class PublicationPojo(
     val id: Long,
     val title: String,
     val subTitle: String,
     val author: String,
     val body: String,
     val imageUrl: String,
-    val date: Date,
+    val date: Long,
     val likes: Int,
 )

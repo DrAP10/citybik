@@ -1,5 +1,5 @@
-package com.base.datasource.remote
-import com.base.data.model.PublicationDto
+package com.base.datasource.remote.publications
+import com.base.data.model.remote.PublicationDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
