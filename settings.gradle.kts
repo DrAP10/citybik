@@ -13,9 +13,9 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Base"
-include ':app'
-include ':domain'
-include ':data'
-include ':usecases'
-include ':presentation'
-include ':datasource'
+include(":app")
+include(":domain")
+include(":data")
+include(":usecases")
+include(":presentation")
+include(":datasource")

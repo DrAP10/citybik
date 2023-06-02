@@ -1,6 +1,6 @@
 plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm")
 }
 
 java {
@@ -9,9 +9,9 @@ java {
 }
 
 dependencies {
-    implementation project(':domain')
-    implementation project(':data')
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
-    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation("io.insert-koin:koin-core:3.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 }
