@@ -9,9 +9,8 @@ java {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(Dependencies.domainModule))
 
-    implementation("io.insert-koin:koin-core:3.4.0")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation(Dependencies.koinCore)
+    implementation(Dependencies.coroutinesCore)
 }

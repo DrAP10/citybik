@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    implementation("io.insert-koin:koin-core:3.4.0")
+    implementation(Dependencies.koinCore)
 }

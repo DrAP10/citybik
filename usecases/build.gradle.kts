@@ -9,9 +9,9 @@ java {
 }
 
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":data"))
+    implementation(project(Dependencies.domainModule))
+    implementation(project(Dependencies.dataModule))
 
-    implementation("io.insert-koin:koin-core:3.4.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(Dependencies.koinCore)
+    implementation(Dependencies.coroutinesAndroid)
 }
