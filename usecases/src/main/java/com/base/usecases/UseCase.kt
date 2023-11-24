@@ -12,7 +12,6 @@ abstract class UseCase<in Params, out Result> {
     operator fun invoke(params: Params): Flow<Answer<Result>> =
         flow {
             emit(Answer.Loading)
-            delay(2000)
             emit(run(params))
         }
 
@@ -24,7 +23,6 @@ abstract class UseCaseParamLess<out Result> {
     operator fun invoke(): Flow<Answer<Result>> =
         flow {
             emit(Answer.Loading)
-            delay(2000)
             emit(run())
         }
 
@@ -36,7 +34,6 @@ abstract class FlowUseCase<in Params, out Result> {
     operator fun invoke(params: Params): Flow<Answer<Result>> =
         flow {
             emit(Answer.Loading)
-            delay(2000)
             emitAll(run(params))
         }
 
@@ -47,7 +44,6 @@ abstract class FlowUseCaseParamLess<out Result> {
     operator fun invoke(): Flow<Answer<Result>> =
         flow {
             emit(Answer.Loading)
-            delay(2000)
             emitAll(run())
         }
 

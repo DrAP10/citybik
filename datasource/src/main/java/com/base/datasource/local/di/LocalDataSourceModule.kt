@@ -2,16 +2,16 @@ package com.base.datasource.local.di
 
 import android.app.Application
 import androidx.room.Room
-import com.base.data.sources.local.PublicationLocalDataSource
+import com.base.data.sources.local.NetworkLocalDataSource
 import com.base.datasource.local.AppDatabase
-import com.base.datasource.local.publications.PublicationDao
-import com.base.datasource.local.publications.PublicationLocalDataSourceImpl
+import com.base.datasource.local.networks.NetworkLocalDataSourceImpl
+import com.base.datasource.local.networks.NetworksDao
 import org.koin.dsl.module
 
 fun localDataSourceModule() = module {
     single { provideDataBase(get()) }
-    factory { providePublicationDao(get()) }
-    factory { providePublicationLocalDataSource(get()) }
+    factory { provideNetworksDao(get()) }
+    factory { provideNetworkLocalDataSource(get()) }
 }
 
 fun provideDataBase(app: Application) = Room.databaseBuilder(
@@ -20,7 +20,7 @@ fun provideDataBase(app: Application) = Room.databaseBuilder(
     "Tasks.db"
 ).build()
 
-fun providePublicationDao(database: AppDatabase) = database.publicationDao()
+fun provideNetworksDao(database: AppDatabase) = database.networksDao()
 
-fun providePublicationLocalDataSource(publicationDao: PublicationDao): PublicationLocalDataSource =
-    PublicationLocalDataSourceImpl(publicationDao)
+fun provideNetworkLocalDataSource(networksDao: NetworksDao): NetworkLocalDataSource =
+    NetworkLocalDataSourceImpl(networksDao)

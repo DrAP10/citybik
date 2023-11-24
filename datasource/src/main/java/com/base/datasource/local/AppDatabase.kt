@@ -2,10 +2,11 @@ package com.base.datasource.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.base.datasource.local.publications.PublicationDao
-import com.base.datasource.local.publications.PublicationEntity
+import com.base.datasource.local.networks.NetworksDao
+import com.base.datasource.local.networks.NetworkEntity
+import com.base.datasource.local.networks.StationEntity
 
-@Database(entities = [PublicationEntity::class], version = 1)
+@Database(entities = [NetworkEntity::class, StationEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun publicationDao(): PublicationDao
+    abstract fun networksDao(): NetworksDao
 }

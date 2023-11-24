@@ -3,14 +3,14 @@ package com.base.presentation.di
 import com.base.usecases.di.useCasesModule
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
-import com.base.presentation.features.home.HomeViewModel
-import com.base.presentation.features.setting.SettingViewModel
+import com.base.presentation.features.list.NetworksListViewModel
+import com.base.presentation.features.details.NetworkDetailViewModel
 
 fun presentationModule() = module {
     includes(useCasesModule())
 
-    viewModelOf(::HomeViewModel)
+    viewModelOf(::NetworksListViewModel)
 
-    viewModelOf(::SettingViewModel)
+    viewModelOf(::NetworkDetailViewModel)
 
 }

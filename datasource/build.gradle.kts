@@ -19,12 +19,12 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
-            buildConfigField("String", "API_URL", "\"https://www.drapgames.com:3006/\"")
+            buildConfigField("String", "API_URL", "\"http://api.citybik.es/v2/\"")
         }
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "API_URL", "\"https://www.drapgames.com:3006/\"")
+            buildConfigField("String", "API_URL", "\"http://api.citybik.es/v2/\"")
         }
     }
     compileOptions {
@@ -40,7 +40,7 @@ dependencies {
     implementation(project(Dependencies.dataModule))
     implementation(project(Dependencies.domainModule))
 
-    implementation(Dependencies.koinCore)
+    implementation(Dependencies.koinAndroid)
     implementation(Dependencies.coroutinesAndroid)
     implementation(Dependencies.retrofit2)
     implementation(Dependencies.gson)
@@ -55,4 +55,7 @@ dependencies {
     testImplementation(Dependencies.junit)
     androidTestImplementation(Dependencies.androidTestJunit)
     androidTestImplementation(Dependencies.androidTestEspresso)
+
+    debugImplementation(Dependencies.chuckerInterceptor)
+    releaseImplementation(Dependencies.chuckerInterceptorNoOperation)
 }

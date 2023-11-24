@@ -1,6 +1,10 @@
 package com.base.presentation
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.*
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +24,16 @@ class MainActivity : ComponentActivity() {
             BaseTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    BaseApplication()
+                    BaseApplication {
+                        val gmmIntentUri = Uri.parse("geo:${it.latitude},${it.longitude}")
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                        mapIntent.setPackage("com.google.android.apps.maps")
+                        try {
+                            startActivity(mapIntent)
+                        } catch (ex: ActivityNotFoundException) {
+                            Toast.makeText(this, "App not found", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
