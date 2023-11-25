@@ -1,5 +1,6 @@
 package com.base.presentation.features.list
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.base.domain.Answer
@@ -53,6 +55,7 @@ fun NetworksListScreen(
             is Answer.Error -> Message("Error! \ncode: ${state.code}, message: ${state.message}")
             is Answer.UnknownError -> Message("Unknown error!")
             is Answer.Loading -> Loading()
+            is Answer.ErrorWithLocalData -> NetworksList(state.data, goToDetails, withLocalData = true)
         }
     }
 
@@ -62,7 +65,14 @@ fun NetworksListScreen(
 fun NetworksList(
     networks: List<Network>,
     goToDetails: (network: Network) -> Unit,
+    withLocalData: Boolean = false
 ) {
+    val context = LocalContext.current
+    LaunchedEffect(key1 = withLocalData) {
+        if (withLocalData) {
+            Toast.makeText(context, "Data could be outdated", Toast.LENGTH_SHORT).show()
+        }
+    }
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(networks) { network ->
             Column(modifier = Modifier

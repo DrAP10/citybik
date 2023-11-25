@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.base.domain.Answer
 import com.base.domain.Network
-import com.base.usecases.GetNetworksLocalUseCase
+import com.base.usecases.GetNetworksByTermUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class NetworksListViewModel(
-    private val getNetworksLocalUseCase: GetNetworksLocalUseCase,
+    private val getNetworksByTermUseCase: GetNetworksByTermUseCase,
 ) : ViewModel() {
 
     private var _networkState: MutableStateFlow<Answer<List<Network>>> = MutableStateFlow(Answer.Loading)
@@ -24,7 +24,7 @@ class NetworksListViewModel(
 
     fun getNetworksList(term: String = "") {
         viewModelScope.launch(Dispatchers.Main) {
-            getNetworksLocalUseCase(term).collect {
+            getNetworksByTermUseCase(term).collect {
                 _networkState.value = it
             }
         }

@@ -8,5 +8,6 @@ interface NetworkLocalDataSource {
     suspend fun insertOrUpdateNetworks(networks: List<Network>)
     suspend fun insertOrUpdateNetwork(network: Network)
     suspend fun getNetworks(term: String): Flow<List<Network>>
+    suspend fun getNetworkDetail(networkId: String): Flow<Network?>
     suspend fun deleteAll()
 }

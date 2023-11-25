@@ -23,6 +23,9 @@ class NetworkLocalDataSourceImpl(
     override suspend fun getNetworks(term: String): Flow<List<Network>> =
         networksDao.getNetworks(term).map { list -> list.map { item -> item.toBo() } }
 
+    override suspend fun getNetworkDetail(networkId: String): Flow<Network?> =
+        networksDao.getNetworkDetail(networkId).map { it?.toBo() }
+
     override suspend fun deleteAll() =
         networksDao.deleteAll()
 

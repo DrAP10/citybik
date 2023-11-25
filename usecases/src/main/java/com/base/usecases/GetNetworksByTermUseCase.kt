@@ -3,7 +3,7 @@ package com.base.usecases
 import com.base.data.repositories.NetworkRepository
 import com.base.domain.Network
 
-class GetNetworksLocalUseCase(
+class GetNetworksByTermUseCase(
     private val repository: NetworkRepository
 ) : FlowUseCase<String, List<Network>>() {
 
