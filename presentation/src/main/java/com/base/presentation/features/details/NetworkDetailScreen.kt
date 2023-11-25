@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -50,6 +51,7 @@ private fun SuccessScreen(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
+            .clickable { openMaps(network.location.coordinates) }
     ) {
         Spacer(modifier = Modifier.size(10.dp))
         Text(text = "${network.name} (${network.id})")
@@ -94,7 +96,15 @@ private fun SuccessScreen(
 
 @Composable
 private fun Loading() {
-    Message(text = "Loading...")
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.width(64.dp),
+        )
+    }
 }
 
 @Composable

@@ -28,7 +28,7 @@ class NetworkRepository(
     }
 
     suspend fun getNetworkDetail(networkId: String): Answer<Network> {
-        var answer = try {
+        val answer = try {
             val answer = remote.getNetwork(networkId)
             if (answer is Answer.Success) {
                 local.insertOrUpdateNetwork(answer.data)

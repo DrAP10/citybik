@@ -7,10 +7,10 @@ import retrofit2.http.Path
 
 interface NetworksApi {
 
-    @GET("networks?fields=id,name,location")
+    @GET("networks")
     suspend fun getNetworks(): NetworksDto
 
-    @GET("networks/{networkId}?fields=id,name,location,stations")
+    @GET("networks/{networkId}")
     suspend fun getNetwork(@Path("networkId") networkId: String): NetworkResponseDto
 
 }

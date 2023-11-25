@@ -30,7 +30,7 @@ class NetworkRemoteDataSourceImpl(
 fun NetworkDto.toBo() = Network(
     id = id,
     name = name,
-    company = "UNKNOWN", // Not parsing company due an error in the api https://github.com/eskerda/pybikes/issues/644
+    company = company.first(),
     location = location.toBo(),
     stations = stations?.map { it.toBo() },
 )
