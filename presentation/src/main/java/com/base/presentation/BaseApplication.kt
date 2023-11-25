@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.base.domain.Coordinates
 import com.base.presentation.features.details.NetworkDetailScreen
-import com.base.presentation.features.list.HomeScreen
+import com.base.presentation.features.list.NetworksListScreen
 
 @Composable
 fun BaseApplication(openMaps: (coordinates: Coordinates) -> Unit) {
@@ -25,7 +25,7 @@ fun BaseNavHost(
 ) {
     NavHost(navController = navController, startDestination = "networks") {
         composable("networks") {
-            HomeScreen({ network -> navController.navigate("networks/${network.id}") })
+            NetworksListScreen({ network -> navController.navigate("networks/${network.id}") })
         }
         composable(
             "networks/{networkId}"

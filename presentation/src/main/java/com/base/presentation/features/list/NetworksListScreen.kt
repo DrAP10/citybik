@@ -19,7 +19,7 @@ import com.base.domain.Network
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(
+fun NetworksListScreen(
     goToDetails: (network: Network) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NetworksListViewModel = koinViewModel()

@@ -18,7 +18,7 @@ class NetworkRepository(
             val answer = remote.getNetworks()
             if (answer is Answer.Success) {
                 local.deleteAll()
-                local.insertOrUpdateNetworks(answer.data)
+                local.insertOrUpdateNetworks(answer.data.sortedBy { it.name })
             }
             answer
         } catch (ex: Exception) {
