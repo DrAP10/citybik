@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
                     BaseApplication {
-                        val gmmIntentUri = Uri.parse("geo:${it.latitude},${it.longitude}")
+                        val gmmIntentUri = Uri.parse("google.navigation:q=${it.latitude},${it.longitude}&mode=b")
                         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                         mapIntent.setPackage("com.google.android.apps.maps")
                         try {
