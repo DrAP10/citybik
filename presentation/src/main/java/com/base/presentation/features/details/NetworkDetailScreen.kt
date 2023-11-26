@@ -3,11 +3,15 @@ package com.base.presentation.features.details
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,7 +24,6 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun NetworkDetailScreen(
     networkId: String?,
-    onBack: () -> Unit,
     openMaps: (coordinates: Coordinates) -> Unit,
     modifier: Modifier = Modifier,
     networkDetailViewModel: NetworkDetailViewModel = koinViewModel()
@@ -33,12 +36,12 @@ fun NetworkDetailScreen(
         modifier = modifier
     ) {
         when (val state = networkDetailViewModel.networkState.collectAsState().value) {
-            is Answer.Success -> SuccessScreen(state.data, onBack, openMaps)
+            is Answer.Success -> SuccessScreen(state.data, openMaps)
             is Answer.NetworkError -> Message("Connection error!")
             is Answer.Error -> Message("Error! \ncode: ${state.code}, message: ${state.message}")
             is Answer.UnknownError -> Message("Unknown error!")
             is Answer.Loading -> Loading()
-            is Answer.ErrorWithLocalData -> SuccessScreen(state.data, onBack, openMaps, withLocalData = true)
+            is Answer.ErrorWithLocalData -> SuccessScreen(state.data, openMaps, withLocalData = true)
         }
     }
 
@@ -47,7 +50,6 @@ fun NetworkDetailScreen(
 @Composable
 private fun SuccessScreen(
     network: Network,
-    onBack: () -> Unit,
     openMaps: (coordinates: Coordinates) -> Unit,
     withLocalData: Boolean = false
 ) {
@@ -71,18 +73,18 @@ private fun SuccessScreen(
         Text(text = "${network.location.city}, ${network.location.country}")
         Spacer(modifier = Modifier.size(8.dp))
         network.location.coordinates.apply {
-            Text(text = "$latitude, $longitude")
+            Text(text = "Location: ($latitude, $longitude)")
         }
         Spacer(modifier = Modifier.size(8.dp))
+        Divider(color = MaterialTheme.colors.onBackground, thickness = 1.dp)
     }
-    network.stations?.let {
-        Column(
+    network.stations?.let { stations ->
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 40.dp)
-                .verticalScroll(rememberScrollState())
         ) {
-            for (station in it) {
+            items(stations) { station ->
                 Column(modifier = Modifier
                     .fillMaxWidth()
                     .clickable { openMaps(station.coordinates) }
@@ -90,12 +92,19 @@ private fun SuccessScreen(
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(text = station.name)
                     Spacer(modifier = Modifier.size(8.dp))
+                    Text(text = "Last update: ${station.formattedLastUpdate}")
+                    Spacer(modifier = Modifier.size(8.dp))
                     Text(text = "Free bikes: ${station.freeBikes}, Empty slots: ${station.emptySlots}")
                     Spacer(modifier = Modifier.size(8.dp))
                     station.coordinates.apply {
-                        Text(text = "$latitude, $longitude")
+                        Text(text = "Location: ($latitude, $longitude)")
                     }
-                    Spacer(modifier = Modifier.size(20.dp))
+                    Spacer(modifier = Modifier.size(10.dp))
+                    Divider(
+                        color = MaterialTheme.colors.onBackground,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(horizontal = 60.dp)
+                    )
                 }
             }
         }

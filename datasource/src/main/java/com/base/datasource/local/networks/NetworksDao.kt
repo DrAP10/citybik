@@ -30,5 +30,8 @@ abstract class NetworksDao {
     abstract suspend fun insertStation(station: StationEntity)
 
     @Query("DELETE FROM NETWORK")
-    abstract suspend fun deleteAll()
+    abstract suspend fun deleteAllNetworks()
+
+    @Query("DELETE FROM STATION")
+    abstract suspend fun deleteAllStations()
 }

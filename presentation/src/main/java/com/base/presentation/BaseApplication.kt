@@ -40,7 +40,6 @@ fun BaseNavHost(
         ) {
             NetworkDetailScreen(
                 it.arguments?.getString("networkId"),
-                { navController.navigateUp() },
                 openMaps
             )
         }

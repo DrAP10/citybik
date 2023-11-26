@@ -5,7 +5,7 @@ import com.base.domain.Network
 
 class GetNetworkDetailUseCase(
     private val repository: NetworkRepository
-) : UseCase<String, Network>() {
+) : FlowUseCase<String, Network>() {
 
     override suspend fun run(networkId: String) =
         repository.getNetworkDetail(networkId)

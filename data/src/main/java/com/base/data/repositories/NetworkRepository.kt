@@ -7,11 +7,10 @@ import com.base.domain.Answer.Loading.asError
 import com.base.domain.Answer.Loading.asErrorWithLocalData
 import com.base.domain.Answer.Loading.asSuccess
 import com.base.domain.Network
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 
 class NetworkRepository(
     private val remote: NetworkRemoteDataSource,
@@ -31,25 +30,23 @@ class NetworkRepository(
         return answer
     }
 
-    suspend fun getNetworkDetail(networkId: String): Answer<Network> {
-        return try {
+    suspend fun getNetworkDetail(networkId: String): Flow<Answer<Network>> = flow {
+        try {
             val answer = remote.getNetwork(networkId)
             if (answer is Answer.Success) {
+                emit(answer)
                 local.insertOrUpdateNetwork(answer.data)
-                answer
             } else {
-                val flow = local.getNetworkDetail(networkId)
-                runBlocking(Dispatchers.IO) {
-                    flow.first()?.asErrorWithLocalData() ?: answer
-                }
-//                local.getNetworkDetail(networkId)?.asErrorWithLocalData() ?: answer
+                emitAll(
+                    local.getNetworkDetail(networkId)
+                        .map { it?.asErrorWithLocalData() ?: answer }
+                )
             }
         } catch (ex: Exception) {
-            val flow = local.getNetworkDetail(networkId)
-            runBlocking(Dispatchers.IO) {
-                flow.first()?.asErrorWithLocalData() ?: ex.asError<Network>()
-            }
-//            local.getNetworkDetail(networkId)?.asErrorWithLocalData() ?: ex.asError<Network>()
+            emitAll(
+                local.getNetworkDetail(networkId)
+                    .map { it?.asErrorWithLocalData() ?: ex.asError<Network>() }
+            )
         }
     }
 
