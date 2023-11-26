@@ -5,16 +5,29 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-        primary = Purple200,
-        primaryVariant = Purple700,
+        primary = Blue200,
+        primaryVariant = Blue700,
         secondary = Teal200
 )
 
 private val LightColorPalette = lightColors(
-        primary = Purple500,
-        primaryVariant = Purple700,
+        primary = Blue500,
+        primaryVariant = Blue700,
+        secondary = Teal200
+)
+
+private val NoConnectionAvailableDarkColorPalette = darkColors(
+    primary = Red200,
+    primaryVariant = Red700,
+    secondary = Teal200
+)
+
+private val NoConnectionAvailableLightColorPalette = lightColors(
+        primary = Red200,
+        primaryVariant = Red700,
         secondary = Teal200
 
         /* Other default colors to override
@@ -28,12 +41,30 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun BaseTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
+fun BaseTheme(
+    connectionAvailable: Boolean = true,
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val systemUiController = rememberSystemUiController()
+
+    val colors = when {
+        darkTheme && connectionAvailable -> {
+            DarkColorPalette
+        }
+        darkTheme && !connectionAvailable -> {
+            NoConnectionAvailableDarkColorPalette
+        }
+        !darkTheme && !connectionAvailable -> {
+            NoConnectionAvailableLightColorPalette
+        }
+        else -> {
+            LightColorPalette
+        }
     }
+    systemUiController.setSystemBarsColor(
+        color = colors.primaryVariant
+    )
 
     MaterialTheme(
             colors = colors,
